@@ -174,6 +174,7 @@ export const PostList: React.FC<IResourceComponentsProps> = () => {
                 visible={visibleShowModal}
                 onCancel={() => setVisibleShowModal(false)}
                 title="Show post"
+                okButtonProps={{ style: { display: "none" } }}
             >
                 <Title level={5}>Id</Title>
                 <Text>{record?.id}</Text>
