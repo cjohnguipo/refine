@@ -44,27 +44,85 @@ export type OnErrorResponse = {
     error?: Error;
 };
 
-export type AuthActionResponse = {
-    success: boolean;
-    redirectTo?: string;
-    error?: Error;
-    [key: string]: unknown;
-};
+export type AuthActionResponse =
+    | {
+          success: true;
+          redirectTo?: string;
+      }
+    | { success: false; error: Error };
 
-export type PermissionResponse = unknown;
+export type LogoutResponse =
+    | {
+          success: true;
+          redirectTo: string;
+      }
+    | { success: false; error: Error };
+
+export type PermissionsResponse = unknown;
 
 export type IdentityResponse = unknown;
 
-export type AuthBindings = {
-    login: (params: any) => Promise<AuthActionResponse>;
-    logout: (params: any) => Promise<AuthActionResponse>;
-    check: (params?: any) => Promise<CheckResponse>;
-    onError: (error: any) => Promise<OnErrorResponse>;
-    register?: (params: any) => Promise<AuthActionResponse>;
-    forgotPassword?: (params: any) => Promise<AuthActionResponse>;
-    updatePassword?: (params: any) => Promise<AuthActionResponse>;
-    getPermissions?: (params?: any) => Promise<PermissionResponse>;
-    getIdentity?: (params?: any) => Promise<IdentityResponse>;
+type UnknownObject = Record<string, unknown>;
+
+type IAuthBindingParams = {
+    Login: any;
+    Logout: any;
+    Check: any;
+    Register: any;
+    ForgotPassword: any;
+    Permissions: any;
+    Identity: any;
+    UpdatePassword: any;
+};
+
+interface IAuthBindingResponses {
+    Login: UnknownObject;
+    Logout: UnknownObject;
+    Register: UnknownObject;
+    Identity: unknown;
+    Permissions: unknown;
+    ForgotPassword: UnknownObject;
+    UpdatePassword: UnknownObject;
+}
+
+type ActionType<Params, Response = unknown> = (
+    params: Params extends unknown ? any : Params,
+) => Promise<Response>;
+
+export type AuthBindings<
+    AuthBindingParams extends IAuthBindingParams = IAuthBindingParams,
+    AuthBindingResponses extends IAuthBindingResponses = IAuthBindingResponses,
+> = {
+    login: ActionType<
+        AuthBindingParams["Login"],
+        AuthBindingResponses["Login"]
+    >;
+    logout: ActionType<
+        AuthBindingParams["Logout"],
+        LogoutResponse & AuthBindingResponses["Logout"]
+    >;
+    check: ActionType<AuthBindingParams["Check"], CheckResponse>;
+    onError: (error: Error) => Promise<OnErrorResponse>;
+    register?: ActionType<
+        AuthBindingParams["Register"],
+        AuthBindingResponses["Register"] & AuthActionResponse
+    >;
+    forgotPassword?: ActionType<
+        AuthBindingParams["ForgotPassword"],
+        AuthBindingResponses["ForgotPassword"]
+    >;
+    updatePassword?: ActionType<
+        AuthBindingParams["UpdatePassword"],
+        AuthBindingResponses["UpdatePassword"]
+    >;
+    getPermissions?: ActionType<
+        AuthBindingParams["Permissions"],
+        AuthBindingResponses["Permissions"]
+    >;
+    getIdentity?: ActionType<
+        AuthBindingParams["Identity"],
+        AuthBindingResponses["Identity"]
+    >;
 };
 
 export interface IAuthBindingsContext extends Partial<AuthBindings> {
