@@ -1,0 +1,1 @@
+{"install":{"@refinedev/react-router-v6":"latest","react-router-dom":"^6.8.1","@refinedev/core":"latest"},"uninstall":["@pankod/refine-react-hook-form","@pankod/refine-react-router-v6","@pankod/refine-core","@pankod/refine-react-router-v6"]}
