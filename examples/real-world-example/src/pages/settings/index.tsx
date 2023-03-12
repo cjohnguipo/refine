@@ -22,7 +22,7 @@ export const SettingsPage: React.FC = () => {
             redirect: false,
             onMutationSuccess: ({ data }) => {
                 localStorage.setItem(TOKEN_KEY, data.user.token);
-                push(`/profile/@${data.user.username}`);
+                push(`/profile/${data.user.username}`);
             },
         },
     });

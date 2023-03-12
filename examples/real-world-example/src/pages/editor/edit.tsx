@@ -17,7 +17,7 @@ type IArticlesVariables = {
 
 export const EditArticlePage: React.FC = () => {
     const { push } = useNavigation();
-    const params = useParams();
+    const params = useParams<{ slug: string }>();
 
     const {
         refineCore: { onFinish, formLoading },

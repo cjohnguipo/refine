@@ -51,7 +51,7 @@ export const Header: React.FC = () => {
                                 <li className="nav-item">
                                     <Link
                                         className="nav-link"
-                                        to={`profile/@${user?.username}`}
+                                        to={`profile/${user?.username}`}
                                     >
                                         <img
                                             src={user?.image}

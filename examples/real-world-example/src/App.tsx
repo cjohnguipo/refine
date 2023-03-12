@@ -57,12 +57,12 @@ function App() {
                     },
                     {
                         element: <ProfilePage />,
-                        path: "profile/@:username",
+                        path: "profile/:username",
                         layout: true,
                     },
                     {
                         element: <ProfilePage />,
-                        path: "profile/@:username/:page",
+                        path: "profile/:username/:page",
                         layout: true,
                     },
                     {

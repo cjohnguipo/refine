@@ -14,7 +14,7 @@ import { IArticle } from "interfaces";
 const { useParams, Link } = routerProvider;
 
 export const ArticlePage: React.FC = () => {
-    const params = useParams();
+    const params = useParams<{ slug: string }>();
     const { data: user, isFetching: userIsFetching } = useGetIdentity({
         v3LegacyAuthProviderCompatible: true,
     });
@@ -154,13 +154,13 @@ export const ArticlePage: React.FC = () => {
 
                             <div className="article-meta">
                                 <Link
-                                    to={`/profile/@${article?.data.author.username}`}
+                                    to={`/profile/${article?.data.author.username}`}
                                 >
                                     <img src={article?.data.author.image} />
                                 </Link>
                                 <div className="info">
                                     <Link
-                                        to={`/profile/@${article?.data.author.username}`}
+                                        to={`/profile/${article?.data.author.username}`}
                                         className="author"
                                     >
                                         {article?.data.author.username}
@@ -284,13 +284,13 @@ export const ArticlePage: React.FC = () => {
                         <div className="article-actions">
                             <div className="article-meta">
                                 <Link
-                                    to={`/profile/@${article?.data.author.username}`}
+                                    to={`/profile/${article?.data.author.username}`}
                                 >
                                     <img src={article?.data.author.image} />
                                 </Link>
                                 <div className="info">
                                     <Link
-                                        to={`/profile/@${article?.data.author.username}`}
+                                        to={`/profile/{article?.data.author.username}`}
                                         className="author"
                                     >
                                         {article?.data.author.username}
@@ -424,7 +424,8 @@ export const ArticlePage: React.FC = () => {
                                 <br />
 
                                 <div className="card">
-                                    {commentData?.data.map((item: any) => { // eslint-disable-line 
+                                    {commentData?.data.map((item: any) => {
+                                        // eslint-disable-line
                                         return (
                                             <>
                                                 <div className="card-block">
@@ -434,7 +435,7 @@ export const ArticlePage: React.FC = () => {
                                                 </div>
                                                 <div className="card-footer">
                                                     <Link
-                                                        to={`/profile/@${article?.data.author.username}`}
+                                                        to={`/profile/${article?.data.author.username}`}
                                                         className="comment-author"
                                                     >
                                                         <img
@@ -447,7 +448,7 @@ export const ArticlePage: React.FC = () => {
                                                     </Link>
                                                     &nbsp;
                                                     <Link
-                                                        to={`/profile/@${article?.data.author.username}`}
+                                                        to={`/profile/${article?.data.author.username}`}
                                                         className="comment-author"
                                                     >
                                                         {item?.author.username}

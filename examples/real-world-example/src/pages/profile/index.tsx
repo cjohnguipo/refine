@@ -24,14 +24,14 @@ export const ProfilePage: React.FC = () => {
     const { mutate: updateMutation } = useUpdate();
     const { mutate: deleteMutation } = useDelete();
 
-    const params = useParams();
+    const params = useParams<any>();
+    const username = params.username.replace(/^@/, "");
 
     const { tableQueryResult, current, pageCount, setCurrent, setFilters } =
         useTable<IArticle>({
             resource: "articles",
-
             queryOptions: {
-                enabled: params?.username !== undefined,
+                enabled: username !== undefined,
             },
         });
 
@@ -39,7 +39,7 @@ export const ProfilePage: React.FC = () => {
         setFilters([
             {
                 field: "author",
-                value: params?.username,
+                value: username,
                 operator: "eq",
             },
             {
@@ -48,15 +48,15 @@ export const ProfilePage: React.FC = () => {
                 operator: "eq",
             },
         ]);
-    }, [params?.username]);
+    }, [username]);
 
     useEffect(() => {
         setCurrent(1);
-    }, [params?.username, params?.page]);
+    }, [username, params?.page]);
 
     const { data: profileData, isLoading: isLoading } = useOne<IProfile>({
         resource: "profiles",
-        id: params?.username,
+        id: username,
         meta: {
             resource: "profile",
         },
@@ -140,7 +140,7 @@ export const ProfilePage: React.FC = () => {
                             </div>
                         )}
 
-                        {params?.username &&
+                        {username &&
                             tableQueryResult?.data?.data?.map((item) => {
                                 return (
                                     <ArticleList

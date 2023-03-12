@@ -24,7 +24,7 @@ export const ProfileNav: React.FC<ProfileNavProps> = ({
                         className={`nav-link ${
                             params?.page === "favorites" ? "" : "active"
                         }`}
-                        to={`/profile/@${profileData?.data.username}`}
+                        to={`/profile/${profileData?.data.username}`}
                         onClick={() => {
                             setFilters([
                                 {
@@ -48,7 +48,7 @@ export const ProfileNav: React.FC<ProfileNavProps> = ({
                         className={`nav-link ${
                             params?.page === "favorites" ? "active" : ""
                         }`}
-                        to={`/profile/@${profileData?.data.username}/favorites`}
+                        to={`/profile/${profileData?.data.username}/favorites`}
                         onClick={() => {
                             setFilters([
                                 {
