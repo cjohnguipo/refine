@@ -3,10 +3,10 @@ import { useQueryClient } from "@tanstack/react-query";
 export const useInvalidateAuthStore = () => {
     const queryClient = useQueryClient();
 
-    const invalidate = () => {
-        queryClient.invalidateQueries(["useAuthenticated"]);
-        queryClient.invalidateQueries(["getUserIdentity"]);
-        queryClient.invalidateQueries(["usePermissions"]);
+    const invalidate = async () => {
+        await queryClient.invalidateQueries(["useAuthenticated"]);
+        await queryClient.invalidateQueries(["getUserIdentity"]);
+        await queryClient.invalidateQueries(["usePermissions"]);
     };
 
     return invalidate;

@@ -112,7 +112,7 @@ export function useLogout<TVariables = {}>({
         (TVariables & Variables) | void,
         unknown
     >(["useLogout"], logoutFromContext, {
-        onSuccess: (data, variables) => {
+        onSuccess: async (data, variables) => {
             const { success, error, redirectTo } = data;
             const { redirectPath } = variables ?? {};
 
@@ -126,17 +126,18 @@ export function useLogout<TVariables = {}>({
                 open?.(buildNotification(error));
             }
 
+            await invalidateAuthStore();
+
             if (redirect !== false) {
                 if (routerType === "legacy") {
                     push(redirect ?? "/login");
                 } else {
                     if (redirect) {
+                        console.log("worked useLogout go");
                         go({ to: redirect });
                     }
                 }
             }
-
-            invalidateAuthStore();
         },
         onError: (error: any) => {
             open?.(buildNotification(error));
@@ -153,12 +154,14 @@ export function useLogout<TVariables = {}>({
         ["useLogout", "v3LegacyAuthProviderCompatible"],
         legacyLogoutFromContext,
         {
-            onSuccess: (data, variables) => {
+            onSuccess: async (data, variables) => {
                 const redirectPath = variables?.redirectPath ?? data;
 
                 if (redirectPath === false) {
                     return;
                 }
+
+                await invalidateAuthStore();
 
                 if (redirectPath) {
                     if (routerType === "legacy") {
@@ -174,8 +177,6 @@ export function useLogout<TVariables = {}>({
                 } else {
                     go({ to: "/login" });
                 }
-
-                invalidateAuthStore();
             },
             onError: (error: any) => {
                 open?.(buildNotification(error));
