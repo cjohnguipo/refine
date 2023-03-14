@@ -133,7 +133,6 @@ export function useLogout<TVariables = {}>({
                     push(redirect ?? "/login");
                 } else {
                     if (redirect) {
-                        console.log("worked useLogout go");
                         go({ to: redirect });
                     }
                 }
