@@ -4,3 +4,8 @@ node_modules/
 .snapshots/
 *.min.js
 packages/**/coverage/
+.next/
+*.map.js
+*.yml
+*.yaml
+*.hbs
