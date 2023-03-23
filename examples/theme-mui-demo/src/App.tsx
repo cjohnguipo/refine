@@ -37,12 +37,11 @@ import { authProvider } from "authProvider";
 import { RememeberMe } from "components/remember-me";
 
 const App: React.FC = () => {
-    const [customTheme, setCustomTheme] = useState(RefineThemes.MagentaDark);
+    const [customTheme, setCustomTheme] = useState(RefineThemes.PinkDark);
     const { show, close, visible } = useModal();
 
     return (
         <BrowserRouter>
-            <GitHubBanner />
             <ThemeProvider theme={customTheme}>
                 <CssBaseline />
                 <GlobalStyles

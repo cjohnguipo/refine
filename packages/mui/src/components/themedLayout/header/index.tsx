@@ -1,20 +1,40 @@
 import React from "react";
-import { useGetIdentity, useActiveAuthProvider } from "@refinedev/core";
-import { AppBar, Stack, Toolbar, Typography, Avatar } from "@mui/material";
+import {
+    AppBar,
+    Stack,
+    Toolbar,
+    Typography,
+    Avatar,
+    IconButton,
+} from "@mui/material";
+import { Menu } from "@mui/icons-material";
 
 import { RefineThemedLayoutHeaderProps } from "../types";
 
-export const ThemedHeader: React.FC<RefineThemedLayoutHeaderProps> = () => {
-    const authProvider = useActiveAuthProvider();
-    const { data: user } = useGetIdentity({
-        v3LegacyAuthProviderCompatible: Boolean(authProvider?.isLegacy),
-    });
+export const ThemedHeader: React.FC<RefineThemedLayoutHeaderProps> = ({
+    user,
+    isDrawerOpen,
+    onMenuClick,
+}) => {
+    const hasMenu = Boolean(onMenuClick);
 
-    const shouldRenderHeader = user && (user.name || user.avatar);
-
-    return shouldRenderHeader ? (
+    return (
         <AppBar position="sticky">
             <Toolbar>
+                {hasMenu && (
+                    <IconButton
+                        aria-label="open drawer"
+                        onClick={onMenuClick}
+                        edge="start"
+                        sx={{
+                            mr: 2,
+                            display: { xs: "none", md: "block" },
+                            ...(isDrawerOpen && { display: "none" }),
+                        }}
+                    >
+                        <Menu />
+                    </IconButton>
+                )}
                 <Stack
                     direction="row"
                     width="100%"
@@ -35,5 +55,5 @@ export const ThemedHeader: React.FC<RefineThemedLayoutHeaderProps> = () => {
                 </Stack>
             </Toolbar>
         </AppBar>
-    ) : null;
+    );
 };

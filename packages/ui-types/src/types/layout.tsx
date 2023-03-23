@@ -35,9 +35,21 @@ export type RefineLayoutTitleProps = TitleProps;
 export type RefineLayoutLayoutProps = LayoutProps;
 
 export type RefineThemedLayoutProps = RefineLayoutLayoutProps;
-export type RefineThemedLayoutSiderProps = RefineLayoutSiderProps;
-export type RefineThemedLayoutHeaderProps = RefineLayoutHeaderProps;
+export type RefineThemedLayoutSiderProps = RefineLayoutSiderProps & {
+    hasHeader?: boolean;
+    isDrawerOpen?: boolean;
+    onCollapseClick?: (collapse?: boolean) => void;
+};
+export type RefineThemedLayoutHeaderProps = RefineLayoutHeaderProps & {
+    user?: {
+        name?: string;
+        avatar?: string;
+    };
+    isDrawerOpen?: boolean;
+    onMenuClick?: () => void;
+};
 export type RefineLayoutThemedTitleProps = RefineLayoutTitleProps & {
     icon?: React.ReactNode;
     text?: React.ReactNode;
+    wrapperStyles?: React.CSSProperties;
 };

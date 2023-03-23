@@ -83,40 +83,40 @@ const RefineThemes = Object.keys(RefinePalettes).reduce((acc, key) => {
     return {
         ...acc,
         [key]: createTheme({
-            components: {
-                MuiAppBar: {
-                    defaultProps: {
-                        elevation: 0,
-                    },
-                },
+            // components: {
+            //     MuiAppBar: {
+            //         defaultProps: {
+            //             elevation: 0,
+            //         },
+            //     },
 
-                MuiToolbar: {
-                    styleOverrides: {
-                        root: {
-                            backgroundColor: customColors.header,
-                        },
-                    },
-                },
+            //     MuiToolbar: {
+            //         styleOverrides: {
+            //             root: {
+            //                 backgroundColor: customColors.header,
+            //             },
+            //         },
+            //     },
 
-                MuiDrawer: {
-                    styleOverrides: {
-                        paper: {
-                            backgroundColor: customColors.sider,
-                        },
-                    },
-                },
+            //     MuiDrawer: {
+            //         styleOverrides: {
+            //             paper: {
+            //                 backgroundColor: customColors.sider,
+            //             },
+            //         },
+            //     },
 
-                MuiListItemButton: {
-                    styleOverrides: {
-                        root: {
-                            "&.Mui-selected": {
-                                color: primaryColors.light,
-                                backgroundColor: primaryColors["100"],
-                            },
-                        },
-                    },
-                },
-            },
+            //     MuiListItemButton: {
+            //         styleOverrides: {
+            //             root: {
+            //                 "&.Mui-selected": {
+            //                     color: primaryColors.light,
+            //                     backgroundColor: primaryColors["100"],
+            //                 },
+            //             },
+            //         },
+            //     },
+            // },
             palette: {
                 ...RefinePalettes[paletteName],
             },

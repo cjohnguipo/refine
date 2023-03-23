@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useGetIdentity, useActiveAuthProvider } from "@refinedev/core";
 import { Box } from "@mui/material";
 
 import { ThemedSider as DefaultSider } from "./sider";
@@ -13,12 +14,26 @@ export const ThemedLayout: React.FC<RefineThemedLayoutProps> = ({
     OffLayoutArea,
     children,
 }) => {
+    const authProvider = useActiveAuthProvider();
+    const { data: user } = useGetIdentity({
+        v3LegacyAuthProviderCompatible: Boolean(authProvider?.isLegacy),
+    });
+
+    const [isDrawerOpen, setIsDrawerOpen] = useState(true);
+
     const SiderToRender = Sider ?? DefaultSider;
     const HeaderToRender = Header ?? DefaultHeader;
 
+    const shouldRenderHeader = user && (user.name || user.avatar);
+
     return (
         <Box display="flex" flexDirection="row">
-            <SiderToRender Title={Title} />
+            <SiderToRender
+                Title={Title}
+                hasHeader={shouldRenderHeader}
+                isDrawerOpen={isDrawerOpen}
+                onCollapseClick={(collapse) => setIsDrawerOpen(!!collapse)}
+            />
             <Box
                 sx={{
                     display: "flex",
@@ -27,7 +42,13 @@ export const ThemedLayout: React.FC<RefineThemedLayoutProps> = ({
                     minHeight: "100vh",
                 }}
             >
-                <HeaderToRender />
+                {shouldRenderHeader && (
+                    <HeaderToRender
+                        user={user}
+                        isDrawerOpen={isDrawerOpen}
+                        onMenuClick={() => setIsDrawerOpen(true)}
+                    />
+                )}
                 <Box
                     component="main"
                     sx={{
